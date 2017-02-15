@@ -1,4 +1,6 @@
-const extract = require('./')
+/* eslint-env jest */
+
+const extract = require('./dist')
 
 test('simple', () => {
   expect(
