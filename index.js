@@ -8,7 +8,7 @@ function pure (address) {
     .replace(/[.,;:()]/g, '') // "6, rue foo" => "6 rue foo"
     .replace(/^ | $/g, '') // "6 rue foo " => "6 rue foo"
     .replace(/ +/g, ' ') // "6   rue  foo" => "6 rue foo"
-    .replace(/ à .*$/, '') // "6 rue foo à bar" => "6 rue foo"
+    .replace(/ [aà] .*$/, '') // "6 rue foo à bar" => "6 rue foo"
 }
 
 function checkFakes (address) {
