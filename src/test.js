@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-const extract = require('./dist')
+const extract = require('./')
 
 it('finds a lone address', () => {
   expect(
