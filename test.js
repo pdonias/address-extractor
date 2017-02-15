@@ -6,6 +6,12 @@ test('simple', () => {
   ).toEqual([ '6 rue Denfert Rochereau' ])
 })
 
+test('none', () => {
+  expect(
+    extract('Petit appartement très bien situé')
+  ).toEqual([])
+})
+
 test('double', () => {
   expect(
     extract('6 rue Denfert Rochereau, 41 rue du Drac')
@@ -14,12 +20,24 @@ test('double', () => {
 
 test('real', () => {
   expect(
-    extract('Petit appartement situé au 6, rue Denfert Rochereau, proche du bvd Clémenceau. Faibles charges.')
-  ).toEqual([ '6 rue Denfert Rochereau', 'bvd Clémenceau' ])
+    extract('Petit appartement situé au (6, rue Denfert Rochereau), à proximité du bvd Clémenceau. Faibles charges.')
+  ).toEqual([ '6 rue Denfert Rochereau', 'proximité du bvd Clémenceau' ])
 })
 
 test('fake', () => {
   expect(
     extract('Petit appartement situé dans une rue calme, proche du bvd Clémenceau. Place de parking disponible.')
-  ).toEqual([ 'bvd Clémenceau' ])
+  ).toEqual([ 'proche du bvd Clémenceau' ])
+})
+
+test('stop before à', () => {
+  expect(
+    extract('Situé au 6 rue àbà à Grenoble')
+  ).toEqual([ '6 rue àbà' ])
+})
+
+test('parenthesis', () => {
+  expect(
+    extract('Situé au 6 rue  Denfert Rochereau (Grenoble)')
+  ).toEqual([ '6 rue Denfert Rochereau' ])
 })
