@@ -10,6 +10,9 @@
     "test": "jest",
     "dev-test": "jest --watch"
   },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pdonias/address-extractor.git"
@@ -23,7 +26,8 @@
     "url": "https://github.com/pdonias/address-extractor/issues"
   },
   "devDependencies": {
-    "jest": "^18.1.0"
+    "jest": "^18.1.0",
+    "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "lodash": "^4.17.4"
