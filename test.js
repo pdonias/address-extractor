@@ -41,3 +41,10 @@ test('parenthesis', () => {
     extract('Situé au 6 rue  Denfert Rochereau (Grenoble)')
   ).toEqual([ '6 rue Denfert Rochereau' ])
 })
+
+test('carriage return', () => {
+  expect(
+    extract(`6 rue Denfert Rochereau
+dans immeuble ancien`)
+  ).toEqual([ '6 rue Denfert Rochereau' ])
+})
