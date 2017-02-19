@@ -12,7 +12,7 @@ $ npm install address-extractor --save
 const extract = require('address-extractor')
 const TEXT = `
 foo bar 6 rue Charles De Gaulle, foo bar\n
-foo bar 7, bvd Henri IV, foo bar
+foo bar 7 bvd Henri IV, foo bar
 `
 
 extract(TEXT)

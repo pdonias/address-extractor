@@ -1,42 +1,44 @@
+/* eslint-env jest */
+
 const extract = require('./')
 
-test('simple', () => {
+it('finds a lone address', () => {
   expect(
     extract('6 rue Denfert Rochereau')
   ).toEqual([ '6 rue Denfert Rochereau' ])
 })
 
-test('none', () => {
+it('ignores address-less text', () => {
   expect(
     extract('Petit appartement très bien situé')
   ).toEqual([])
 })
 
-test('double', () => {
+it('can find multiple addresses', () => {
   expect(
     extract('6 rue Denfert Rochereau, 41 rue du Drac')
   ).toEqual([ '6 rue Denfert Rochereau', '41 rue du Drac' ])
 })
 
-test('real', () => {
+it('finds address inside parenthesis', () => {
   expect(
-    extract('Petit appartement situé au (6, rue Denfert Rochereau), à proximité du bvd Clémenceau. Faibles charges.')
-  ).toEqual([ '6 rue Denfert Rochereau', 'proximité du bvd Clémenceau' ])
+    extract('Petit appartement situé au (6 rue Denfert Rochereau). Faibles charges.')
+  ).toEqual([ '6 rue Denfert Rochereau' ])
 })
 
-test('fake', () => {
+it('ignores fake addresses', () => {
   expect(
-    extract('Petit appartement situé dans une rue calme, proche du bvd Clémenceau. Place de parking disponible.')
-  ).toEqual([ 'proche du bvd Clémenceau' ])
+    extract('Petit appartement situé dans une rue calme. Place de parking disponible.')
+  ).toEqual([])
 })
 
-test('stop before à', () => {
+it('ignores any text after an "à"', () => {
   expect(
     extract('Situé au 6 rue àbà à Grenoble')
   ).toEqual([ '6 rue àbà' ])
 })
 
-test('parenthesis', () => {
+it('ignores any text after a "("', () => {
   expect(
     extract('Situé au 6 rue  Denfert Rochereau (Grenoble)')
   ).toEqual([ '6 rue Denfert Rochereau' ])

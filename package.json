@@ -5,10 +5,39 @@
   "version": "0.3.0",
   "homepage": "https://github.com/pdonias/address-extractor#readme",
   "description": "Extracts addresses from a text",
-  "main": "index.js",
+  "preferGlobal": false,
+  "main": "dist/",
+  "bin": {},
+  "files": [
+    "dist/"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
-    "test": "jest",
-    "dev-test": "jest --watch"
+    "build": "cross-env NODE_ENV=production babel --source-maps --out-dir=dist/ src/",
+    "dev": "cross-env NODE_ENV=development babel --watch --source-maps --out-dir=dist/ src/",
+    "dev-test": "jest --watch",
+    "lint": "standard",
+    "posttest": "npm run lint",
+    "prepublish": "npm run build",
+    "test": "jest"
+  },
+  "babel": {
+    "plugins": [
+      "transform-runtime"
+    ],
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": 4
+          }
+        }
+      ],
+      "stage-3"
+    ]
   },
   "pre-commit": [
     "test"
@@ -25,9 +54,21 @@
   "bugs": {
     "url": "https://github.com/pdonias/address-extractor/issues"
   },
+  "standard": {
+    "ignore": [
+      "dist"
+    ],
+    "parser": "babel-eslint"
+  },
   "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-stage-3": "^6.16.0",
+    "cross-env": "^3.1.4",
     "jest": "^18.1.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "standard": "^8.6.0"
   },
   "dependencies": {
     "lodash": "^4.17.4"
